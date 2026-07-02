@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deluxe Laundry - Riwayat Transaksi</title>
+    <title>Deluxe Laundry - Daftar Cucian</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -185,6 +185,25 @@
             color: #ccc;
         }
 
+        .btn-proses {
+            background-color: #4ec2e0;
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 0.85rem;
+            padding: 5px 15px;
+            border-radius: 8px;
+            border: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-proses:hover {
+            background-color: #3aaecb;
+            color: #ffffff;
+        }
+
         @media (max-width: 991px) {
             body {
                 flex-direction: column;
@@ -228,12 +247,12 @@
                     <i class="bi bi-person-circle"></i> Pelanggan
                 </a>
             </li>
-            <li class="sidebar-item">
+            <li class="sidebar-item active">
                 <a href="<?php echo site_url('daftarcucian'); ?>" class="sidebar-link">
                     <i class="bi bi-mailbox"></i> Daftar Cucian
                 </a>
             </li>
-            <li class="sidebar-item active">
+            <li class="sidebar-item">
                 <a href="<?php echo site_url('riwayat'); ?>" class="sidebar-link">
                     <i class="bi bi-clock-history"></i> Riwayat
                 </a>
@@ -247,7 +266,7 @@
             <a href="<?php echo site_url('auth/logout'); ?>" class="btn-logout">Logout</a>
         </div>
 
-        <h2 class="page-title">Riwayat Transaksi Laundry</h2>
+        <h2 class="page-title">Daftar Cucian</h2>
 
         <?php if($this->session->flashdata('message')): ?>
             <div style="max-width: 100%; width: 100%; margin: 0 auto 15px auto;">
@@ -257,55 +276,68 @@
 
         <div class="table-card">
             <div class="card-header">
-                <i class="bi bi-clock-history me-2"></i>Data Riwayat Transaksi
+                <i class="bi bi-mailbox me-2"></i>Data Cucian Aktif
             </div>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>ID Riwayat</th>
                             <th>ID Cucian</th>
                             <th>Nama Pelanggan</th>
                             <th>Nama Paket</th>
+                            <th>Kasir</th>
+                            <th>Berat (Kg)</th>
                             <th>Total Biaya</th>
+                            <th>Tgl Masuk</th>
                             <th>Status</th>
-                            <th>Tanggal Diambil</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if (!empty($riwayat)): ?>
+                        <?php if (!empty($daftar_cucian)): ?>
                             <?php $no = 1; ?>
-                            <?php foreach ($riwayat as $r): ?>
+                            <?php foreach ($daftar_cucian as $c): ?>
                                 <tr>
                                     <td><?php echo $no++; ?></td>
-                                    <td><?php echo $r['id_riwayat']; ?></td>
-                                    <td><?php echo $r['id_cucian']; ?></td>
-                                    <td><?php echo htmlspecialchars($r['nama_pelanggan_arsip']); ?></td>
-                                    <td><?php echo htmlspecialchars($r['nama_paket_arsip']); ?></td>
-                                    <td>Rp <?php echo number_format($r['total_biaya_final'], 0, ',', '.'); ?></td>
+                                    <td><?php echo $c['id_cucian']; ?></td>
+                                    <td><?php echo htmlspecialchars($c['nama_pelanggan']); ?></td>
+                                    <td><?php echo htmlspecialchars($c['nama_paket']); ?></td>
+                                    <td><?php echo htmlspecialchars($c['nama_kasir']); ?></td>
+                                    <td><?php echo number_format($c['berat_laundry'], 2, ',', '.'); ?></td>
+                                    <td>Rp <?php echo number_format($c['total_biaya'], 0, ',', '.'); ?></td>
+                                    <td><?php echo date('d-m-Y H:i', strtotime($c['tgl_masuk'])); ?></td>
                                     <td>
-                                        <?php if ($r['status_cucian'] == 'Selesai Dicuci'): ?>
-                                            <span class="badge bg-success">Selesai Dicuci</span>
-                                        <?php else: ?>
-                                            <span class="badge bg-warning text-dark">Diproses</span>
-                                        <?php endif; ?>
+                                        <?php
+                                        $badge_class = '';
+                                        switch ($c['status_cucian']) {
+                                            case 'Diproses':  $badge_class = 'bg-secondary';  break;
+                                            case 'Dicuci':    $badge_class = 'bg-info text-dark'; break;
+                                            case 'Disetrika': $badge_class = 'bg-warning text-dark'; break;
+                                            case 'Selesai':   $badge_class = 'bg-primary'; break;
+                                            case 'Diambil':   $badge_class = 'bg-success'; break;
+                                            default:          $badge_class = 'bg-secondary';
+                                        }
+                                        ?>
+                                        <span class="badge <?php echo $badge_class; ?>">
+                                            <?php echo $c['status_cucian']; ?>
+                                        </span>
                                     </td>
-                                    <td><?php echo date('d-m-Y H:i', strtotime($r['tgl_diambil'])); ?></td>
                                     <td>
-                                        <a href="<?php echo site_url('riwayat/ubah/' . $r['id_riwayat']); ?>" class="btn btn-sm btn-primary">
-                                            <i class="bi bi-pencil-square"></i>
+                                        <a href="<?php echo site_url('daftarcucian/ubahStatus/' . $c['id_cucian']); ?>"
+                                           class="btn-proses"
+                                           onclick="return confirm('Apakah cucian ini sudah selesai dan akan diambil? Data akan dipindahkan ke riwayat.');">
+                                            <i class="bi bi-check-circle"></i> Selesai / Diambil
                                         </a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="9">
+                                <td colspan="10">
                                     <div class="table-empty">
                                         <i class="bi bi-inbox"></i>
-                                        Belum ada data riwayat transaksi.
+                                        Belum ada data cucian aktif.
                                     </div>
                                 </td>
                             </tr>

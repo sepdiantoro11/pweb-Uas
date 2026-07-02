@@ -267,7 +267,7 @@
                 </a>
             </li>
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="<?php echo site_url('daftarcucian'); ?>" class="sidebar-link">
                     <i class="bi bi-mailbox"></i> Daftar Cucian
                 </a>
             </li>

@@ -30,7 +30,7 @@ CREATE TABLE daftar_cucian (
     berat_laundry DECIMAL(4,2) NOT NULL, -- Mendukung desimal (Contoh: 3.50 kg)
     total_biaya INT NOT NULL,            -- Hasil perkalian Berat x Harga Paket
     tgl_masuk DATETIME DEFAULT CURRENT_TIMESTAMP,
-    status_cucian ENUM('Diproses', 'Selesai Dicuci') DEFAULT 'Diproses',
+    status_cucian ENUM('Diproses', 'Dicuci', 'Disetrika', 'Selesai', 'Diambil') DEFAULT 'Diproses',
     FOREIGN KEY (id_pelanggan) REFERENCES pelanggan(id_pelanggan) ON DELETE CASCADE,
     FOREIGN KEY (id_kasir) REFERENCES kasir(id_kasir) ON DELETE CASCADE,
     FOREIGN KEY (id_paket) REFERENCES paket_laundry(id_paket) ON DELETE CASCADE
@@ -72,7 +72,7 @@ INSERT INTO daftar_cucian (id_pelanggan, id_kasir, id_paket, berat_laundry, tota
 
 -- Nota 2: Rina Amanda, Cuci Kering, Berat 2.5 Kg. Total: 2.5 x 5000 = 12500
 INSERT INTO daftar_cucian (id_pelanggan, id_kasir, id_paket, berat_laundry, total_biaya, status_cucian) VALUES
-(2, 1, 2, 2.50, 12500, 'Selesai Dicuci');
+(2, 1, 2, 2.50, 12500, 'Dicuci');
 
 -- Mengisi Contoh Riwayat Transaksi Masa Lalu yang Sudah Diambil Pelanggan
 INSERT INTO riwayat (id_cucian, nama_pelanggan_arsip, nama_paket_arsip, total_biaya_final, tgl_diambil) VALUES
