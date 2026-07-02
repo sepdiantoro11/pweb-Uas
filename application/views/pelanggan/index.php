@@ -343,6 +343,11 @@
                     <div class="error-validation"><?php echo form_error('berat', '', ''); ?></div>
                 <?php endif; ?>
 
+                <div class="form-group-row">
+                    <label class="label-field" for="no_resi">No. Resi:</label>
+                    <input type="text" class="input-field" id="no_resi" name="no_resi" value="<?php echo set_value('no_resi'); ?>" placeholder="Biarkan kosong untuk generate otomatis" autocomplete="off">
+                </div>
+
                 <div class="button-action-area">
                     <button type="submit" class="btn-simpan">Simpan</button>
                 </div>

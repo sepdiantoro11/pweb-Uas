@@ -266,6 +266,7 @@
                             <th>No</th>
                             <th>ID Riwayat</th>
                             <th>ID Cucian</th>
+                            <th>No. Resi</th>
                             <th>Nama Pelanggan</th>
                             <th>Nama Paket</th>
                             <th>Total Biaya</th>
@@ -281,6 +282,7 @@
                                     <td><?php echo $no++; ?></td>
                                     <td><?php echo $r['id_riwayat']; ?></td>
                                     <td><?php echo $r['id_cucian']; ?></td>
+                                    <td><?php echo htmlspecialchars($r['no_resi']); ?></td>
                                     <td><?php echo htmlspecialchars($r['nama_pelanggan_arsip']); ?></td>
                                     <td><?php echo htmlspecialchars($r['nama_paket_arsip']); ?></td>
                                     <td>Rp <?php echo number_format($r['total_biaya_final'], 0, ',', '.'); ?></td>
@@ -296,7 +298,7 @@
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="8">
+                                <td colspan="9">
                                     <div class="table-empty">
                                         <i class="bi bi-inbox"></i>
                                         Belum ada data riwayat transaksi.

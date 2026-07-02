@@ -35,6 +35,7 @@ class Pelanggan extends CI_Controller {
             $alamat    = $this->input->post('alamat', TRUE);
             $id_paket  = $this->input->post('paket', TRUE);
             $berat     = $this->input->post('berat', TRUE);
+            $no_resi   = $this->input->post('no_resi', TRUE);
 
             $pelanggan = $this->Pelanggan_model->get_pelanggan_by_creds($nama, $nomor_hp);
             
@@ -61,6 +62,10 @@ class Pelanggan extends CI_Controller {
 
             $status_cucian = 'Diproses';
 
+            if (empty($no_resi)) {
+                $no_resi = $this->Pelanggan_model->generate_no_resi();
+            }
+
             $data_cucian = array(
                 'id_pelanggan'  => $id_pelanggan,
                 'id_kasir'      => $id_kasir,
@@ -68,7 +73,8 @@ class Pelanggan extends CI_Controller {
                 'berat_laundry' => $berat,
                 'total_biaya'   => $total_biaya,
                 'tgl_masuk'     => $tgl_masuk,
-                'status_cucian' => $status_cucian
+                'status_cucian' => $status_cucian,
+                'no_resi'       => $no_resi
             );
 
             $this->Pelanggan_model->insert_cucian($data_cucian);

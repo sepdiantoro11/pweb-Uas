@@ -89,6 +89,7 @@ class Daftarcucian extends CI_Controller {
             $alamat   = $this->input->post('alamat', TRUE);
             $id_paket = $this->input->post('paket', TRUE);
             $berat    = $this->input->post('berat', TRUE);
+            $no_resi  = $this->input->post('no_resi', TRUE);
 
             // Update data pelanggan
             $data_pelanggan = array(
@@ -107,7 +108,8 @@ class Daftarcucian extends CI_Controller {
             $data_cucian = array(
                 'id_paket'      => $id_paket,
                 'berat_laundry' => $berat,
-                'total_biaya'   => $total_biaya
+                'total_biaya'   => $total_biaya,
+                'no_resi'       => $no_resi
             );
             $this->Daftarcucian_model->updateCucian($id, $data_cucian);
 

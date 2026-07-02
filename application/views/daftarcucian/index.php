@@ -290,7 +290,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>ID Cucian</th>
+                            <th>No. Resi</th>
                             <th>Nama Pelanggan</th>
                             <th>Nama Paket</th>
                             <th>Kasir</th>
@@ -307,7 +307,7 @@
                             <?php foreach ($daftar_cucian as $c): ?>
                                 <tr>
                                     <td><?php echo $no++; ?></td>
-                                    <td><?php echo $c['id_cucian']; ?></td>
+                                    <td><?php echo htmlspecialchars($c['no_resi']); ?></td>
                                     <td><?php echo htmlspecialchars($c['nama_pelanggan']); ?></td>
                                     <td><?php echo htmlspecialchars($c['nama_paket']); ?></td>
                                     <td><?php echo htmlspecialchars($c['nama_kasir']); ?></td>

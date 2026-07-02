@@ -69,6 +69,7 @@ class Daftarcucian_model extends CI_Model {
 
         $data_riwayat = array(
             'id_cucian'             => $cucian['id_cucian'],
+            'no_resi'               => $cucian['no_resi'],
             'nama_pelanggan_arsip'  => $cucian['nama_pelanggan'],
             'nama_paket_arsip'      => $cucian['nama_paket'],
             'total_biaya_final'     => $cucian['total_biaya'],

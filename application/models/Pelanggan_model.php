@@ -26,4 +26,25 @@ class Pelanggan_model extends CI_Model {
     public function insert_cucian($data) {
         return $this->db->insert('daftar_cucian', $data);
     }
+
+    public function generate_no_resi() {
+        $prefix = 'LND-' . date('Ymd') . '-';
+
+        $this->db->select('no_resi');
+        $this->db->like('no_resi', $prefix, 'after');
+        $this->db->order_by('no_resi', 'DESC');
+        $this->db->limit(1);
+        $query = $this->db->get('daftar_cucian');
+        $last = $query->row_array();
+
+        if ($last && !empty($last['no_resi'])) {
+            $parts = explode('-', $last['no_resi']);
+            $last_seq = (int)end($parts);
+            $new_seq = str_pad($last_seq + 1, 3, '0', STR_PAD_LEFT);
+        } else {
+            $new_seq = '001';
+        }
+
+        return $prefix . $new_seq;
+    }
 }

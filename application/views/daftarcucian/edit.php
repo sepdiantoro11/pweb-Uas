@@ -322,6 +322,14 @@
                 </div>
 
                 <div class="form-group-row">
+                    <label class="label-field" for="no_resi">No. Resi:</label>
+                    <input type="text" class="input-field <?php echo form_error('no_resi') ? 'is-invalid' : (isset($_POST['no_resi']) ? 'is-valid' : ''); ?>" id="no_resi" name="no_resi" value="<?php echo set_value('no_resi', $cucian['no_resi']); ?>" autocomplete="off">
+                </div>
+                <?php if(form_error('no_resi')): ?>
+                    <div class="error-validation"><?php echo form_error('no_resi', '', ''); ?></div>
+                <?php endif; ?>
+
+                <div class="form-group-row">
                     <label class="label-field" for="nama">Nama:</label>
                     <input type="text" class="input-field <?php echo form_error('nama') ? 'is-invalid' : (isset($_POST['nama']) ? 'is-valid' : ''); ?>" id="nama" name="nama" value="<?php echo set_value('nama', $cucian['nama_pelanggan']); ?>" autocomplete="off">
                 </div>
