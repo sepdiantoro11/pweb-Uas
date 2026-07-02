@@ -275,8 +275,15 @@
         <?php endif; ?>
 
         <div class="table-card">
-            <div class="card-header">
-                <i class="bi bi-mailbox me-2"></i>Data Cucian Aktif
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-mailbox me-2"></i>Data Cucian Aktif</span>
+                <form action="<?php echo site_url('daftarcucian'); ?>" method="GET" class="d-flex" style="gap:8px;">
+                    <input type="text" name="search" class="form-control form-control-sm" style="width:200px; border-radius:6px;" placeholder="Cari nama pelanggan..." value="<?php echo isset($search) ? htmlspecialchars($search) : ''; ?>">
+                    <button type="submit" class="btn btn-sm btn-light" style="border-radius:6px;"><i class="bi bi-search"></i></button>
+                    <?php if(!empty($search)): ?>
+                        <a href="<?php echo site_url('daftarcucian'); ?>" class="btn btn-sm btn-light" style="border-radius:6px;"><i class="bi bi-x-circle"></i></a>
+                    <?php endif; ?>
+                </form>
             </div>
             <div class="table-responsive">
                 <table class="table">

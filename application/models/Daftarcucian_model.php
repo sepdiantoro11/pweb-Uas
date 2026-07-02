@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Daftarcucian_model extends CI_Model {
 
-    public function getAll() {
+    public function getAll($search = '') {
         $this->db->select('
             daftar_cucian.*,
             pelanggan.nama_pelanggan,
@@ -14,6 +14,9 @@ class Daftarcucian_model extends CI_Model {
         $this->db->join('pelanggan', 'daftar_cucian.id_pelanggan = pelanggan.id_pelanggan', 'left');
         $this->db->join('paket_laundry', 'daftar_cucian.id_paket = paket_laundry.id_paket', 'left');
         $this->db->join('kasir', 'daftar_cucian.id_kasir = kasir.id_kasir', 'left');
+        if ($search != '') {
+            $this->db->like('pelanggan.nama_pelanggan', $search);
+        }
         $this->db->order_by('daftar_cucian.tgl_masuk', 'DESC');
         return $this->db->get()->result_array();
     }

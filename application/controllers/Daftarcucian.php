@@ -14,7 +14,9 @@ class Daftarcucian extends CI_Controller {
     }
 
     public function index() {
-        $data['daftar_cucian'] = $this->Daftarcucian_model->getAll();
+        $search = $this->input->get('search', TRUE);
+        $data['daftar_cucian'] = $this->Daftarcucian_model->getAll($search);
+        $data['search'] = $search;
         $this->load->view('daftarcucian/index', $data);
     }
 
